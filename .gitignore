@@ -1,0 +1,101 @@
+# =========================================================
+# Python / Django - Backend
+# =========================================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+backend/venv/
+backend/.venv/
+backend/env/
+backend/.env/
+
+# Environment variables / secrets
+backend/.env
+backend/.env.*
+!.env.example
+
+# Django
+backend/db.sqlite3
+backend/db.sqlite3-journal
+
+# Django static/media files
+backend/staticfiles/
+backend/media/
+
+# Logs
+*.log
+
+# Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# =========================================================
+# Node / Next.js - Frontend
+# =========================================================
+
+# Dependencies
+frontend/node_modules/
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Production
+frontend/build/
+
+# Environment variables
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Vercel
+frontend/.vercel/
+
+# TypeScript
+frontend/*.tsbuildinfo
+
+# =========================================================
+# Editors
+# =========================================================
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Zed
+.zed/
+
+# JetBrains
+.idea/
+
+# =========================================================
+# OS
+# =========================================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+
+# macOS
+.DS_Store
+
+# Linux
+*~
