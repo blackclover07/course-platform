@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'courses',
     'api',
     'accounts',
+    'enrollment',
 ]
 
 
@@ -153,3 +154,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+OTP_TTL = 300
+OTP_MAX_ATTEMPTS = 5

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
+import uuid
 
 
 # Create your models here.
@@ -12,10 +13,11 @@ ROLE_CHOICES=[
 
 
 class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username=None
     email = models.EmailField('email address',unique=True,max_length=254)
     role = models.CharField(max_length=20,choices=ROLE_CHOICES,default='STUDENT')
-
+    is_email_verified = models.BooleanField(default=False)
     # is_active=models.BooleanField(default=True)
     # is_staff=models.BooleanField(default=False)
 

@@ -18,14 +18,17 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView)
+from accounts.views import LoginTokenObtainPairView,LoginRefreshView
+from accounts.views import UserRegistrationView,VerifyEmailView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path("api/auth/", TokenObtainPairView.as_view(),name='token_obtain_pair'),
-    path("api/auth/refresh/", TokenRefreshView.as_view(),name='token_refresh'),
+    path('api/register-user/', UserRegistrationView.as_view(),name='register_user'),
+    path('api/verify-email/', VerifyEmailView.as_view(),name='verify-email'),
+    path("api/auth/", LoginTokenObtainPairView.as_view(),name='token_obtain_pair'),
+    path("api/auth/refresh/", LoginRefreshView.as_view(),name='token_refresh'),
 ]
 
 

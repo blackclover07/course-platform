@@ -12,6 +12,7 @@ class CustomUserAdmin(UserAdmin):
             "first_name",
             "last_name",
             "role",
+            "is_email_verified",
             "is_staff",
             "is_active",
         )
@@ -53,6 +54,7 @@ class CustomUserAdmin(UserAdmin):
                 "Permissions",
                 {
                     "fields": (
+                        "is_email_verified",
                         "is_active",
                         "is_staff",
                         "is_superuser",
@@ -84,9 +86,14 @@ class CustomUserAdmin(UserAdmin):
                         "first_name",
                         "last_name",
                         "role",
+                        "is_email_verified",
                         "is_active",
                         "is_staff",
                     ),
                 },
             ),
         )
+    readonly_fields = (
+        "last_login",
+        "date_joined",
+    )
