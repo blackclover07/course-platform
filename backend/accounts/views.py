@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from accounts.serializers import UserSerializer, RegistrationResponseSerializers, VerifyOTPSerializer
 from .models import User
 from .serializers import LoginTokenObtainPairSerializer
+from .services.mailing import send_verification_mail
 from .services.otp import generate_otp, store_otp, get_otp, increment_helper, delete_otp
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView)
 
@@ -22,6 +23,7 @@ class UserRegistrationView(generics.CreateAPIView):
         otp = generate_otp()
 
         store_otp(user.id, otp)
+        send_verification_mail.delay(user.email,otp)
 
         return Response({
             'msg':'User created Successfully',
@@ -45,7 +47,6 @@ class VerifyEmailView(generics.GenericAPIView):
         user = get_object_or_404(User, id=user_id)
 
         otp_data = get_otp(user_id)
-        print(otp_data)
 
         if not otp_data:
             return Response(

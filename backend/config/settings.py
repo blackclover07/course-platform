@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -161,3 +163,21 @@ REDIS_PORT = 6379
 REDIS_DB = 0
 OTP_TTL = 300
 OTP_MAX_ATTEMPTS = 5
+
+
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "username": "sagardey.mca024007@bppimt.ac.in",
+            "password": "lecd fnmm nxqh znlq",
+            "use_tls": True,
+        },
+    },
+}
+# EMAIL_HOST_PASSWORD = 'lecd fnmm nxqh znlq'
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
