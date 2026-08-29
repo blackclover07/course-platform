@@ -1,9 +1,6 @@
 from django.db import models
 import uuid
-
-from rest_framework.fields import DjangoImageField
-
-
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -15,9 +12,27 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+class Category(BaseModel):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True,blank=True)
+    description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name
 
 class Course(BaseModel):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='courses')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2,default=0)

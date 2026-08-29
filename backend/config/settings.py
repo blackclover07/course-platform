@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # third pary apps
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
 
     # manually create apps
     'courses',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -181,3 +183,11 @@ MAILERS = {
 
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]

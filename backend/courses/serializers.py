@@ -1,6 +1,6 @@
 from django.utils.text import slugify
 from rest_framework import serializers
-
+from .models import Category
 from .models import Course, Section, Lesson
 
 
@@ -35,3 +35,10 @@ class CoursesSerializer(serializers.ModelSerializer):
         fields = ["id","title","description","price","image","slug","sections"]
     def get_slug(self, obj):
         return slugify(obj.title)
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id","name","slug","description","is_active"]
+        read_only_fields = ["id","slug"]

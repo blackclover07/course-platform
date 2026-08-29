@@ -1,6 +1,6 @@
 from .models import User
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework.exceptions import AuthenticationFailed
 
 
@@ -48,3 +48,4 @@ class LoginTokenObtainPairSerializer(TokenObtainPairSerializer):
             raise AuthenticationFailed('Please verify your email before logging in.')
 
         return data
+

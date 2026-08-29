@@ -92,5 +92,3 @@ class VerifyEmailView(generics.GenericAPIView):
 class LoginTokenObtainPairView(TokenObtainPairView):
     serializer_class = LoginTokenObtainPairSerializer
 
-class LoginRefreshView(TokenRefreshView):
-    serializer_class = LoginTokenObtainPairSerializer
