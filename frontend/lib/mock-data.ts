@@ -15,7 +15,7 @@ export const courses = [
     title: "React Fundamentals",
     description: "Learn the fundamentals of React and build modern UIs.",
     instructor: "John Doe",
-    category: "Web Development",
+    category: " Frontend Development",
     price: 799,
     rating: 4.7,
   },

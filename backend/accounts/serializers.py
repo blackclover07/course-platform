@@ -18,6 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email','first_name','last_name',"role","is_email_verified")
+
+
 
 
 class VerifyEmailSerializer(serializers.Serializer):

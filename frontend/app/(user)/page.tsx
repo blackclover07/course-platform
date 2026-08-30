@@ -54,6 +54,7 @@ export default function Home() {
                 key={course.id}
                 slug={course.slug}
                 title={course.title}
+                category={course.category}
                 description={course.description}
                 instructor={course.instructor}
                 price={course.price}

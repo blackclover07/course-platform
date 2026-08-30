@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,51 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import login from "@/lib/api/auth";
-
-export default function LoginPage() {
-  const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>
-  ) {
-    event.preventDefault();
-
-    setError("");
-    setIsLoading(true);
-
-    try {
-      await login({
-        email,
-        password,
-      });
-
-      router.push("/dashboard");
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Something went wrong"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
+export default function InstructorLoginPage() {
   return (
     <main className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-6 py-10">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-2xl border lg:grid-cols-2">
         {/* Image */}
         <div className="relative hidden min-h-[600px] lg:block">
           <Image
-            src="/images/login.jpg"
-            alt="Students learning online"
+            src="/images/instructor-login.jpg"
+            alt="Instructor teaching online"
             width={1920}
             height={1280}
             priority
@@ -61,17 +21,17 @@ export default function LoginPage() {
             className="h-full w-full object-cover"
           />
 
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/40" />
 
           <div className="absolute inset-0 flex items-end p-10">
             <div className="max-w-lg text-white">
               <h2 className="text-4xl font-bold tracking-tight">
-                Keep learning. Keep growing.
+                Share your knowledge.
               </h2>
 
               <p className="mt-4 text-white/80">
-                Continue your learning journey and build the
-                skills that move you forward.
+                Manage your courses, share your expertise, and help
+                students learn new skills.
               </p>
             </div>
           </div>
@@ -82,27 +42,21 @@ export default function LoginPage() {
           <div className="w-full max-w-md">
             {/* Header */}
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">
+              <p className="text-sm font-medium text-muted-foreground">
+                Instructor Portal
+              </p>
+
+              <h1 className="mt-2 text-3xl font-bold tracking-tight">
                 Welcome back
               </h1>
 
               <p className="mt-2 text-sm text-muted-foreground">
-                Sign in to continue learning.
+                Sign in to manage your courses.
               </p>
             </div>
 
-            {/* Error */}
-            {error && (
-              <div className="mt-6 rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                {error}
-              </div>
-            )}
-
             {/* Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="mt-8 space-y-5"
-            >
+            <form className="mt-8 space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email">
                   Email
@@ -112,29 +66,28 @@ export default function LoginPage() {
                   id="email"
                   type="email"
                   placeholder="you@example.com"
-                  value={email}
-                  onChange={(event) =>
-                    setEmail(event.target.value)
-                  }
-                  disabled={isLoading}
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">
-                  Password
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">
+                    Password
+                  </Label>
+
+                  <Link
+                    href="/forgot-password"
+                    className="text-sm text-muted-foreground hover:text-foreground hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
 
                 <Input
                   id="password"
                   type="password"
                   placeholder="Enter your password"
-                  value={password}
-                  onChange={(event) =>
-                    setPassword(event.target.value)
-                  }
-                  disabled={isLoading}
                   required
                 />
               </div>
@@ -142,19 +95,19 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={isLoading}
               >
-                {isLoading ? "Logging in..." : "Login"}
+                Instructor Login
               </Button>
             </form>
 
+            {/* Back to Student Login */}
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Not an instructor?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="font-medium text-foreground hover:underline"
               >
-                Register
+                Student Login
               </Link>
             </p>
           </div>
@@ -163,3 +116,4 @@ export default function LoginPage() {
     </main>
   );
 }
+

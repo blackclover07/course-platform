@@ -19,7 +19,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from accounts.views import LoginTokenObtainPairView
-from accounts.views import UserRegistrationView,VerifyEmailView
+from accounts.views import UserRegistrationView,VerifyEmailView,UserProfileView
 from rest_framework_simplejwt.views import (TokenRefreshView)
 
 
@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/verify-email/', VerifyEmailView.as_view(),name='verify-email'),
     path("api/auth/", LoginTokenObtainPairView.as_view(),name='token_obtain_pair'),
     path("api/auth/refresh/", TokenRefreshView.as_view(),name='token_refresh'),
+    path('api/auth/profile/', UserProfileView.as_view(), name='profile'),
 ]
 
 

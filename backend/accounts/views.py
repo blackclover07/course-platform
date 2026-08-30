@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from accounts.serializers import UserSerializer, RegistrationResponseSerializers, VerifyOTPSerializer
+from accounts.serializers import UserSerializer, RegistrationResponseSerializers, VerifyOTPSerializer, \
+    UserProfileSerializer
 from .models import User
 from .serializers import LoginTokenObtainPairSerializer
 from .services.mailing import send_verification_mail
@@ -92,3 +93,11 @@ class VerifyEmailView(generics.GenericAPIView):
 class LoginTokenObtainPairView(TokenObtainPairView):
     serializer_class = LoginTokenObtainPairSerializer
 
+
+
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
