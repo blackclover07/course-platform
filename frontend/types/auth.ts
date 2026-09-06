@@ -13,5 +13,6 @@ export interface StudentProfile{
   first_name: string;
   last_name: string;
   role: string;
+  profile_image: File;
   is_email_verified: boolean;
 }

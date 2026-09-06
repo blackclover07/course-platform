@@ -37,6 +37,7 @@ class Course(BaseModel):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2,default=0)
     image = models.ImageField(upload_to="courses/",null=True,blank=True)
+    is_featured = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Course"

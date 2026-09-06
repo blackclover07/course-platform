@@ -2,13 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Check,
-  Mail,
-  ShieldCheck,
-  User,
-  X,
-} from "lucide-react";
+import Image from "next/image";
+import { Check, Mail, ShieldCheck, User, X } from "lucide-react";
 
 import { StudentProfile } from "@/types/auth";
 
@@ -26,6 +21,7 @@ export default function ProfileModal({
     first_name,
     last_name,
     role,
+    profile_image,
     is_email_verified,
   } = student;
 
@@ -38,10 +34,16 @@ export default function ProfileModal({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/70 text-sm font-semibold text-primary-foreground shadow-md transition-transform hover:scale-105"
+        className="relative h-11 w-11 overflow-hidden rounded-full shadow-md ring-2 ring-transparent transition-all hover:scale-105 hover:ring-primary/30"
         title={`${first_name} ${last_name}`}
       >
-        {initials}
+        <Image
+          src={profile_image}
+          alt={`${first_name} ${last_name}`}
+          fill
+          sizes="44px"
+          className="object-cover"
+        />
       </button>
 
       {/* Modal */}
@@ -66,8 +68,14 @@ export default function ProfileModal({
 
             {/* Profile Header */}
             <div className="flex flex-col items-center px-6 pb-6 pt-8">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/70 text-xl font-bold text-primary-foreground shadow-md">
-                {initials}
+              <div className="relative h-20 w-20 overflow-hidden rounded-full shadow-md ring-2 ring-primary/10">
+                <Image
+                  src={profile_image}
+                  alt={`${first_name} ${last_name}`}
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
               </div>
 
               <h2 className="mt-4 text-xl font-bold">
@@ -133,12 +141,8 @@ export default function ProfileModal({
                   {is_email_verified ? (
                     <div className="mt-1 flex items-center gap-2">
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500">
-                        <Check
-                          className="h-3 w-3 text-white"
-                          strokeWidth={3}
-                        />
+                        <Check className="h-3 w-3 text-white" strokeWidth={3} />
                       </span>
-
                       <span className="text-sm font-medium text-green-600">
                         Verified
                       </span>
@@ -148,7 +152,6 @@ export default function ProfileModal({
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-destructive/10">
                         <X className="h-3 w-3 text-destructive" />
                       </span>
-
                       <span className="text-sm font-medium text-destructive">
                         Not verified
                       </span>
@@ -159,7 +162,15 @@ export default function ProfileModal({
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3 border-t bg-muted/30 p-5 justify-center">
+            <div className="flex gap-3 border-t bg-muted/30 p-5">
+              <Link
+                href="/profile"
+                onClick={() => setOpen(false)}
+                className="flex h-10 flex-1 items-center justify-center rounded-md border bg-background px-4 text-sm font-medium transition-colors hover:bg-muted"
+              >
+                View Profile
+              </Link>
+
               <button
                 type="button"
                 onClick={() => setOpen(false)}

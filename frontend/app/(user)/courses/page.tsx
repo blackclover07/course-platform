@@ -1,7 +1,9 @@
 import { CourseCard } from "@/components/courses/course-card";
-import { courses } from "@/lib/mock-data";
+import getCourses from "@/lib/api/get-courses";
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  const courses = await getCourses();
+
   return (
     <main>
       {/* Header */}
@@ -47,20 +49,30 @@ export default function CoursesPage() {
       {/* Courses */}
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course) => (
-              <CourseCard
-                key={course.id}
-                slug={course.slug}
-                title={course.title}
-                description={course.description}
-                instructor={course.instructor}
-                category={course.category}
-                price={course.price}
-                rating={course.rating}
-              />
-            ))}
-          </div>
+          {courses.length === 0 ? (
+            <div className="rounded-xl border p-10 text-center">
+              <h2 className="text-lg font-semibold">
+                No courses available
+              </h2>
+
+              <p className="mt-2 text-sm text-muted-foreground">
+                Check back later for new courses.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {courses.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  slug={course.slug}
+                  title={course.title}
+                  image={course.image}
+                  description={course.description}
+                  price={course.price}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </main>

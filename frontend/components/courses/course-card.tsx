@@ -1,35 +1,41 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
-type CourseCardProps = {
-  slug: string;
-  title: string;
-  description: string;
-  instructor: string;
-  category: string;
-  price: number;
-  rating: number;
-};
+import { Course } from "@/types/course";
+
+type CourseCardProps = Course;
 
 export function CourseCard({
   slug,
   title,
   description,
-  instructor,
-  category,
   price,
-  rating,
+  image,
 }: CourseCardProps) {
+
   return (
     <Link
       href={`/courses/${slug}`}
       className="group overflow-hidden rounded-xl border transition-shadow hover:shadow-md"
     >
       {/* Course Image */}
-      <div className="relative aspect-video bg-muted">
-        <Badge className="absolute left-3 top-3">
-          {category}
-        </Badge>
+      <div className="relative aspect-video overflow-hidden bg-muted">
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <span className="text-sm text-muted-foreground">
+              No image available
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Course Information */}
@@ -42,12 +48,10 @@ export function CourseCard({
           {description}
         </p>
 
-        <p className="mt-4 text-sm text-muted-foreground">
-          {instructor}
-        </p>
-
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-sm">⭐ {rating}</span>
+          <Badge variant="secondary">
+            Course
+          </Badge>
 
           <span className="font-semibold">
             ₹{price}

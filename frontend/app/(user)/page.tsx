@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CourseCard } from "@/components/courses/course-card";
-import { courses } from "@/lib/mock-data";
+import { FeaturedCourses } from "@/components/home/feature-courses";
 import { FeatureCard } from "@/components/home/feature-card";
 import Link from "next/link";
 
@@ -37,40 +36,7 @@ export default function Home() {
 
       {/* Featured Courses */}
       <section className="px-6 py-20">
-        <div className="mx-auto max-w-6xl">
-          <div>
-            <h2 className="text-3xl font-bold">
-              Featured Courses
-            </h2>
-
-            <p className="mt-3 text-muted-foreground">
-              Start learning with some of our popular courses.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course) => (
-              <CourseCard
-                key={course.id}
-                slug={course.slug}
-                title={course.title}
-                category={course.category}
-                description={course.description}
-                instructor={course.instructor}
-                price={course.price}
-                rating={course.rating}
-              />
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Button variant="outline">
-              <Link href="/courses">
-                View All Courses
-              </Link>
-            </Button>
-          </div>
-        </div>
+        <FeaturedCourses/>
       </section>
 
       {/* Fetaures for choosing us */}

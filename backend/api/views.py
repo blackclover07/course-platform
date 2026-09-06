@@ -1,8 +1,8 @@
 from rest_framework import generics
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.permissions import SAFE_METHODS
-from courses.serializers import CoursesSerializer, CategorySerializer
+from courses.serializers import CoursesSerializer, CategorySerializer, AllCoursesSerializer
 from courses.models import Course, Category
 from enrollment.models import Enrollment
 from enrollment.serializers import EnrollmentSerializer
@@ -30,11 +30,28 @@ class CoursesListCreateView(generics.ListCreateAPIView):
     serializer_class=CoursesSerializer
 
 
+class CoursesListview(generics.ListAPIView):
+    permission_classes=[AllowAny]
+    queryset=Course.objects.all()
+    serializer_class=AllCoursesSerializer
+
+class CategoriesListView(generics.ListAPIView):
+    permission_classes=[AllowAny]
+    queryset=Category.objects.all()
+    serializer_class=CategorySerializer
 
 # here lookup_url_kwarg is the name of url arguments name
 
 class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=[IsInstructorOrReadOnly]
+    queryset=Course.objects.all()
+    serializer_class=CoursesSerializer
+    lookup_field='id'
+    lookup_url_kwarg='course_id'
+
+
+class GetCourseDetailView(generics.RetrieveAPIView):
+    permission_classes=[AllowAny]
     queryset=Course.objects.all()
     serializer_class=CoursesSerializer
     lookup_field='id'
@@ -60,3 +77,8 @@ class EnrollmentInstructorListView(generics.ListAPIView):
     queryset=Enrollment.objects.all()
     serializer_class=EnrollmentSerializer
 
+
+class GetFeaturedCourses(generics.ListAPIView):
+    permission_classes=[AllowAny]
+    queryset=Course.objects.filter(is_featured=True)
+    serializer_class=AllCoursesSerializer

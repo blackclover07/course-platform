@@ -1,5 +1,7 @@
 from django.utils.text import slugify
 from rest_framework import serializers
+from rest_framework.permissions import AllowAny
+
 from .models import Category
 from .models import Course, Section, Lesson
 
@@ -42,3 +44,15 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ["id","name","slug","description","is_active"]
         read_only_fields = ["id","slug"]
+
+
+
+# for frontened specific details of courses
+class AllCoursesSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+    class Meta:
+        model = Course
+        fields = ["id","title","description","price","image","slug","is_featured"]
+    def get_slug(self, obj):
+        return slugify(obj.title)
+

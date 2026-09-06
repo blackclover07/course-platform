@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { categories } from "@/lib/mock-data";
+import getCategories from "@/lib/api/get-categories";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+
+  const categories = await getCategories();
   return (
     <main>
       {/* Header */}
@@ -42,7 +44,8 @@ export default function CategoriesPage() {
               </p>
 
               <p className="mt-6 text-sm font-medium">
-                {category.courseCount} courses
+                {/*{category.courseCount} courses*/}
+                future
               </p>
             </Link>
           ))}

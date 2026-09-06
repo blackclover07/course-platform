@@ -13,6 +13,7 @@ class CustomUserAdmin(UserAdmin):
             "last_name",
             "role",
             "is_email_verified",
+            "profile_image",
             "is_staff",
             "is_active",
         )
@@ -39,6 +40,7 @@ class CustomUserAdmin(UserAdmin):
                     "fields": (
                         "first_name",
                         "last_name",
+                        "profile_image",
                     )
                 },
             ),
@@ -86,6 +88,7 @@ class CustomUserAdmin(UserAdmin):
                         "first_name",
                         "last_name",
                         "role",
+                        "profile_image",
                         "is_email_verified",
                         "is_active",
                         "is_staff",
