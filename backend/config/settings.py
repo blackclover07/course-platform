@@ -41,16 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
-    # third pary apps
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
-
-    # manually create apps
+    # manually created apps
+    'home',
     'courses',
-    'api',
     'accounts',
-    'enrollment',
+    'enrollments',
+
 ]
 
 
@@ -72,7 +68,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,12 +148,6 @@ MEDIA_ROOT=BASE_DIR / 'media'
 
 AUTH_USER_MODEL='accounts.User'
 
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 
 REDIS_HOST = 'localhost'

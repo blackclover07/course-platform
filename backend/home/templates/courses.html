@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Courses | CourseHub
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =====================================================
+     COURSES HERO
+     ===================================================== -->
+
+<section class="courses-hero">
+
+    <div class="courses-hero-content">
+
+        <span class="section-label">
+            EXPLORE COURSES
+        </span>
+
+        <h1>
+            Learn something
+            <span>new today.</span>
+        </h1>
+
+        <p>
+            Explore practical courses designed to help you
+            build real skills and create real projects.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COURSE CONTROLS
+     ===================================================== -->
+
+<section class="courses-section">
+
+    <div class="courses-toolbar">
+
+        <div class="courses-result">
+
+            <span class="section-label">
+                ALL COURSES
+            </span>
+
+            <h2>
+                Explore our courses
+            </h2>
+
+        </div>
+
+
+        <div class="courses-filter">
+
+            <select class="form-control">
+
+                <option>
+                    All Categories
+                </option>
+
+                <option>
+                    Development
+                </option>
+
+                <option>
+                    Programming
+                </option>
+
+                <option>
+                    Design
+                </option>
+
+                <option>
+                    Data Science
+                </option>
+
+                <option>
+                    Cybersecurity
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         COURSE GRID
+         ================================================= -->
+
+    <div class="course-grid">
+
+        {% for course in courses %}
+
+    <article class="course-card">
+
+        <div class="course-thumbnail">
+
+            {% if course.image %}
+
+                <img
+                    src="{{ course.image.url }}"
+                    alt="{{ course.title }}"
+                >
+
+            {% else %}
+
+                <div class="course-placeholder">
+                    📚
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="course-content">
+
+            <span class="course-category">
+                {{ course.category.name }}
+            </span>
+
+
+            <h3>
+                {{ course.title }}
+            </h3>
+
+
+            <p>
+                {{ course.description }}
+            </p>
+
+
+            <div class="course-meta">
+
+                <span>
+                    {{ course.lesson_count }} Lessons
+                </span>
+
+                <span>
+                    📚 Course
+                </span>
+
+            </div>
+
+
+            <div class="course-footer">
+
+                <strong class="course-price">
+                    ₹{{ course.price }}
+                </strong>
+
+                <a
+                    href="#"
+                    class="btn btn-primary"
+                >
+                    View Course
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
+
+{% empty %}
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            📚
+        </div>
+
+        <h3>
+            No courses available
+        </h3>
+
+        <p>
+            There are currently no courses available.
+            Check back later.
+        </p>
+
+    </div>
+
+        {% endfor %}
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+
+<section class="cta-section">
+
+    <div class="cta-content">
+
+        <span class="section-label">
+            KEEP LEARNING
+        </span>
+
+        <h2>
+            Ready to build something?
+        </h2>
+
+        <p>
+            Pick a course, start learning, and turn your
+            knowledge into something real.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Categories | CourseHub
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =====================================================
+     CATEGORIES HERO
+     ===================================================== -->
+
+<section class="categories-hero">
+
+    <div class="categories-hero-content">
+
+        <span class="section-label">
+            EXPLORE CATEGORIES
+        </span>
+
+        <h1>
+            Learn what
+            <span>interests you.</span>
+        </h1>
+
+        <p>
+            Explore our collection of courses and find the
+            skills you need to grow, build, and move forward.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORIES
+     ===================================================== -->
+
+<section class="section categories-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                BROWSE BY TOPIC
+            </span>
+
+            <h2>
+                Explore Categories
+            </h2>
+
+            <p>
+                Find courses organized around the skills
+                you're interested in learning.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="categories-grid">
+
+    {% for category in categories %}
+
+        <a href="#" class="category-card">
+
+            <div class="category-card-top">
+
+                <div class="category-icon">
+                    📚
+                </div>
+
+                <span class="category-arrow">
+                    →
+                </span>
+
+            </div>
+
+            <h3>
+                {{ category.name }}
+            </h3>
+
+            <p>
+                {{ category.description }}
+            </p>
+
+            <span class="category-count">
+                {{ category.courses.count }} Courses
+            </span>
+
+        </a>
+
+    {% endfor %}
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+
+<section class="cta-section">
+
+    <div class="cta-content">
+
+        <span class="section-label">
+            KEEP LEARNING
+        </span>
+
+        <h2>
+            Can't decide where to start?
+        </h2>
+
+        <p>
+            Browse all of our courses and find something
+            that matches your goals.
+        </p>
+
+        <a href="#" class="btn btn-primary">
+            Browse All Courses
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
