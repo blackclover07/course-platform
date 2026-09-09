@@ -32,7 +32,7 @@
         {% endif %}
 
 
-        <form method="POST" class="auth-form">
+        <form method="POST" class="auth-form" action="{% url 'login' %}">
 
             {% csrf_token %}
 
@@ -47,7 +47,6 @@
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    value="{{ request.POST.email }}"
                     required
                 >
 

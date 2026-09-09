@@ -1,0 +1,579 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | CourseHub{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <!-- ================================
+         MESSAGES
+         ================================ -->
+
+    {% if messages %}
+        <div class="dashboard-messages">
+
+            {% for message in messages %}
+
+                <div class="dashboard-message {{ message.tags }}">
+
+                    <div class="message-icon">
+
+                        {% if message.tags == "success" %}
+                            ✓
+                        {% elif message.tags == "error" %}
+                            !
+                        {% elif message.tags == "warning" %}
+                            ⚠
+                        {% else %}
+                            i
+                        {% endif %}
+
+                    </div>
+
+                    <div class="message-content">
+                        <strong>
+                            {% if message.tags == "success" %}
+                                Success
+                            {% elif message.tags == "error" %}
+                                Error
+                            {% elif message.tags == "warning" %}
+                                Warning
+                            {% else %}
+                                Information
+                            {% endif %}
+                        </strong>
+
+                        <span>
+                            {{ message }}
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="message-close"
+                        onclick="this.parentElement.remove()"
+                        aria-label="Close message"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+    {% endif %}
+
+
+    <!-- ================================
+         WELCOME HEADER
+         ================================ -->
+
+    <div class="dashboard-welcome">
+
+        <div class="welcome-content">
+
+            <span class="dashboard-label">
+                Student Dashboard
+            </span>
+
+            <h1>
+                Welcome back,
+                {{ request.user.first_name }} 👋
+            </h1>
+
+            <p>
+                Keep learning, keep building, and move one step
+                closer to your goals.
+            </p>
+
+            <div class="welcome-actions">
+
+                <a
+                    href="{% url 'courses' %}"
+                    class="btn btn-primary"
+                >
+                    Explore Courses
+                </a>
+
+                <a
+                    href="#my-courses"
+                    class="btn btn-outline"
+                >
+                    My Courses
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="welcome-decoration">
+
+            <div class="welcome-circle circle-one"></div>
+            <div class="welcome-circle circle-two"></div>
+
+            <div class="welcome-book">
+                📚
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         STATISTICS
+         ================================ -->
+
+    <div class="dashboard-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Enrolled Courses
+                </span>
+
+                <strong>
+                    4
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ▶
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    In Progress
+                </span>
+
+                <strong>
+                    2
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✓
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Completed
+                </span>
+
+                <strong>
+                    2
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏱
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Learning Time
+                </span>
+
+                <strong>
+                    12h
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         CONTINUE LEARNING
+         ================================ -->
+
+    <div class="dashboard-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-eyebrow">
+                    PICK UP WHERE YOU LEFT OFF
+                </span>
+
+                <h2>
+                    Continue Learning
+                </h2>
+
+                <p>
+                    Jump back into your current course.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="continue-card">
+
+            <div class="continue-thumbnail">
+
+                <div class="thumbnail-pattern"></div>
+
+                <span>
+                    📚
+                </span>
+
+            </div>
+
+
+            <div class="continue-content">
+
+                <span class="course-category">
+                    Backend Development
+                </span>
+
+                <h3>
+                    Django REST Framework
+                </h3>
+
+                <p>
+                    Learn how to build powerful REST APIs
+                    and production-ready backends with Django.
+                </p>
+
+
+                <div class="continue-progress-header">
+
+                    <span>
+                        Course Progress
+                    </span>
+
+                    <strong>
+                        72%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar large">
+
+                    <div
+                        class="progress-fill"
+                        style="width: 72%;"
+                    ></div>
+
+                </div>
+
+
+                <div class="continue-footer">
+
+                    <span class="lesson-count">
+                        <span>18</span> of 25 lessons completed
+                    </span>
+
+                    <a
+                        href="#"
+                        class="btn btn-primary"
+                    >
+                        Continue Learning →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         MY COURSES
+         ================================ -->
+
+    <div
+        class="dashboard-section"
+        id="my-courses"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    YOUR LEARNING
+                </span>
+
+                <h2>
+                    My Courses
+                </h2>
+
+                <p>
+                    Continue working on the courses you've enrolled in.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'courses' %}"
+                class="section-link"
+            >
+                View All →
+            </a>
+
+        </div>
+
+
+        <div class="dashboard-courses">
+
+
+            <!-- Course 1 -->
+
+            <article class="dashboard-course-card">
+
+                <div class="dashboard-course-thumbnail">
+
+                    <span>
+                        🐍
+                    </span>
+
+                    <span class="course-status">
+                        In Progress
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-course-content">
+
+                    <span class="course-category">
+                        Programming
+                    </span>
+
+                    <h3>
+                        Python Programming
+                    </h3>
+
+                    <p class="course-lessons">
+                        18 Lessons
+                    </p>
+
+
+                    <div class="course-progress-row">
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width: 45%;"
+                            ></div>
+
+                        </div>
+
+                        <span>
+                            45%
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="#"
+                        class="course-action"
+                    >
+                        Continue →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- Course 2 -->
+
+            <article class="dashboard-course-card">
+
+                <div class="dashboard-course-thumbnail">
+
+                    <span>
+                        JS
+                    </span>
+
+                    <span class="course-status">
+                        In Progress
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-course-content">
+
+                    <span class="course-category">
+                        Web Development
+                    </span>
+
+                    <h3>
+                        JavaScript Fundamentals
+                    </h3>
+
+                    <p class="course-lessons">
+                        24 Lessons
+                    </p>
+
+
+                    <div class="course-progress-row">
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width: 80%;"
+                            ></div>
+
+                        </div>
+
+                        <span>
+                            80%
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="#"
+                        class="course-action"
+                    >
+                        Continue →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- Course 3 -->
+
+            <article class="dashboard-course-card">
+
+                <div class="dashboard-course-thumbnail">
+
+                    <span>
+                        🗄️
+                    </span>
+
+                    <span class="course-status completed">
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-course-content">
+
+                    <span class="course-category">
+                        Databases
+                    </span>
+
+                    <h3>
+                        PostgreSQL Masterclass
+                    </h3>
+
+                    <p class="course-lessons">
+                        30 Lessons
+                    </p>
+
+
+                    <div class="course-progress-row">
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width: 100%;"
+                            ></div>
+
+                        </div>
+
+                        <span>
+                            100%
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="#"
+                        class="course-action completed-action"
+                    >
+                        Course Completed ✓
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         MOTIVATION / CTA
+         ================================ -->
+
+    <div class="dashboard-cta">
+
+        <div class="dashboard-cta-icon">
+            🚀
+        </div>
+
+        <div>
+
+            <h2>
+                Ready to learn something new?
+            </h2>
+
+            <p>
+                Explore our courses and find your next skill to master.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'courses' %}"
+            class="btn btn-primary"
+        >
+            Browse Courses
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

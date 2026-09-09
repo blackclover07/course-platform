@@ -25,13 +25,23 @@
 
                 <!-- Logo -->
                 <a href="{% url 'home' %}" class="navbar-brand">
-                    <span class="brand-icon">C</span>
-                    <span class="brand-name">CourseHub</span>
+
+                    <span class="brand-icon">
+                        C
+                    </span>
+
+                    <span class="brand-name">
+                        CourseHub
+                    </span>
+
                 </a>
 
 
                 <!-- Navigation -->
                 <div class="navbar-links">
+                    <a href="{% url 'home' %}">
+                        Home
+                    </a>
 
                     <a href="{% url 'courses' %}">
                         Courses
@@ -51,13 +61,38 @@
                 <!-- Actions -->
                 <div class="navbar-actions">
 
-                    <a href="{% url 'login' %}" class="btn btn-outline">
-                        Login
-                    </a>
+                    {% if user.is_authenticated %}
 
-                    <a href="#" class="btn btn-primary">
-                        Get Started
-                    </a>
+                        <a
+                            href="{% url 'dashboard' %}"
+                            class="btn btn-outline"
+                        >
+                            Dashboard
+                        </a>
+
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">
+                                    Logout
+                            </button>
+                        </form>
+                    {% else %}
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="btn btn-outline"
+                        >
+                            Login
+                        </a>
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="btn btn-primary"
+                        >
+                            Get Started
+                        </a>
+
+                    {% endif %}
 
                 </div>
 
@@ -88,7 +123,9 @@
 
             <div class="footer-brand">
 
-                <span class="brand-icon">C</span>
+                <span class="brand-icon">
+                    C
+                </span>
 
                 <span>
                     CourseHub
