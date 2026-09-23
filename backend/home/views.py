@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import TemplateView,View
+from django.views.generic import TemplateView, View, DetailView
 from prompt_toolkit.shortcuts import confirm
 
 from accounts.models import User
@@ -105,3 +105,24 @@ class LogoutView(View):
         logout(request)
         messages.success(request, 'You have been logged out.')
         return redirect('login')
+
+
+
+class CourseDetailPageView(DetailView):
+    model = Course
+    template_name = 'course/course-detail.html'
+    pk_url_kwarg = 'course_id'
+    context_object_name = 'course'
+
+    def get_queryset(self):
+        return (
+            Course.objects
+            .select_related("category")
+            .prefetch_related("sections__lessons")
+            .annotate(
+                lesson_count=Count("sections__lessons")
+            )
+        )
+
+
+

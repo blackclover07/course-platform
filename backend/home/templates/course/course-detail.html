@@ -1,0 +1,626 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} | CourseHub{% endblock %}
+
+{% block content %}
+
+<div class="learning-page">
+
+    <!-- =========================================================
+         TOP COURSE HEADER
+    ========================================================== -->
+
+    <header class="learning-header">
+
+        <div class="learning-header-left">
+
+            <a
+                href="{% url 'courses' %}"
+                class="back-to-courses"
+            >
+                ← Courses
+            </a>
+
+            <div class="course-header-info">
+
+                <span class="course-header-category">
+                    {{ course.category.name }}
+                </span>
+
+                <h1>
+                    {{ course.title }}
+                </h1>
+
+            </div>
+
+        </div>
+
+
+        <div class="learning-header-right">
+
+            <div class="header-progress">
+
+                <div class="header-progress-top">
+
+                    <span>
+                        Course Progress
+                    </span>
+
+                    <strong>
+                        0%
+                    </strong>
+
+                </div>
+
+                <div class="header-progress-bar">
+
+                    <div
+                        class="header-progress-fill"
+                        style="width: 0%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="header-action"
+                title="Course options"
+            >
+                ⋮
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MAIN LEARNING LAYOUT
+    ========================================================== -->
+
+    <div class="learning-layout">
+
+
+        <!-- =====================================================
+             COURSE CONTENT SIDEBAR
+        ====================================================== -->
+
+        <aside class="course-outline">
+
+            <div class="outline-header">
+
+                <div>
+
+                    <span class="outline-label">
+                        COURSE CONTENT
+                    </span>
+
+                    <h2>
+                        Learning Path
+                    </h2>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="outline-menu"
+                >
+                    ⚙
+                </button>
+
+            </div>
+
+
+            <!-- Overall Progress -->
+
+            <div class="outline-progress">
+
+                <div class="outline-progress-info">
+
+                    <span>
+                        Your progress
+                    </span>
+
+                    <strong>
+                        0 / {{ course.lesson_count }}
+                    </strong>
+
+                </div>
+
+                <div class="outline-progress-track">
+
+                    <div
+                        class="outline-progress-value"
+                        style="width: 0%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Sections -->
+
+            <div class="outline-sections">
+
+                {% for section in course.sections.all %}
+
+                    <details
+                        class="outline-section"
+                        {% if forloop.first %}open{% endif %}
+                    >
+
+                        <summary class="outline-section-header">
+
+                            <div class="outline-section-title">
+
+                                <span class="outline-section-number">
+                                    {{ forloop.counter|stringformat:"02d" }}
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        {{ section.title }}
+                                    </strong>
+
+                                    <small>
+                                        {{ section.lessons.count }} lessons
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <span class="outline-chevron">
+                                ›
+                            </span>
+
+                        </summary>
+
+
+                        <!-- Lessons -->
+
+                        <div class="outline-lessons">
+
+                            {% for lesson in section.lessons.all %}
+
+                                <a
+                                    href="#lesson-{{ lesson.id }}"
+                                    class="outline-lesson {% if forloop.first and forloop.parentloop.first %}active{% endif %}"
+                                >
+
+                                    <span class="lesson-status">
+                                        {% if forloop.first and forloop.parentloop.first %}
+                                            ▶
+                                        {% else %}
+                                            ○
+                                        {% endif %}
+                                    </span>
+
+                                    <span class="outline-lesson-title">
+                                        {{ lesson.title }}
+                                    </span>
+
+                                    <span class="outline-lesson-more">
+                                        ›
+                                    </span>
+
+                                </a>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% empty %}
+
+                    <div class="outline-empty">
+
+                        <span>📚</span>
+
+                        <p>
+                            No lessons available yet.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Sidebar Footer -->
+
+            <div class="outline-footer">
+
+                <div class="outline-stat">
+
+                    <span>
+                        Lessons
+                    </span>
+
+                    <strong>
+                        {{ course.lesson_count }}
+                    </strong>
+
+                </div>
+
+                <div class="outline-stat">
+
+                    <span>
+                        Sections
+                    </span>
+
+                    <strong>
+                        {{ course.sections.count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================================
+             MAIN STUDY AREA
+        ====================================================== -->
+
+        <main class="study-area">
+
+
+            <!-- ================= STUDY TOOLBAR ================= -->
+
+            <div class="study-toolbar">
+
+                <div class="study-breadcrumb">
+
+                    <span>
+                        {{ course.category.name }}
+                    </span>
+
+                    <span>›</span>
+
+                    <span>
+                        Course
+                    </span>
+
+                    <span>›</span>
+
+                    <strong>
+                        Learning
+                    </strong>
+
+                </div>
+
+
+                <div class="study-actions">
+
+                    <button
+                        type="button"
+                        class="study-action"
+                    >
+                        🔖
+                        <span>Bookmark</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="study-action"
+                    >
+                        📝
+                        <span>Notes</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CURRENT LESSON
+            ================================================== -->
+
+            <section class="lesson-workspace">
+
+                <!-- Lesson Header -->
+
+                <div class="lesson-header">
+
+                    <div class="lesson-header-label">
+
+                        <span>
+                            SECTION 01
+                        </span>
+
+                        <span class="lesson-dot">
+                            •
+                        </span>
+
+                        <span>
+                            LESSON 01
+                        </span>
+
+                    </div>
+
+
+                    <h2>
+                        {% with first_section=course.sections.all.0 %}
+                            {% with first_lesson=first_section.lessons.all.0 %}
+                                {{ first_lesson.title }}
+                            {% endwith %}
+                        {% endwith %}
+                    </h2>
+
+
+                    <p class="lesson-intro">
+
+                        Start your learning journey with this lesson.
+                        Work through the material carefully and
+                        complete the lesson before moving forward.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- Lesson Content -->
+
+                <article class="lesson-content">
+
+                    {% with first_section=course.sections.all.0 %}
+                        {% with first_lesson=first_section.lessons.all.0 %}
+
+                            {% if first_lesson %}
+
+                                <div class="lesson-content-header">
+
+                                    <span class="content-type">
+                                        LESSON
+                                    </span>
+
+                                    <span class="content-divider">
+                                        •
+                                    </span>
+
+                                    <span>
+                                        {{ first_section.title }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="lesson-body">
+
+                                    <h3>
+                                        {{ first_lesson.title }}
+                                    </h3>
+
+                                    {% if first_lesson.description %}
+
+                                        <p class="lesson-description">
+                                            {{ first_lesson.description }}
+                                        </p>
+
+                                    {% endif %}
+
+
+                                    <div class="lesson-text">
+
+                                        {{ first_lesson.content|linebreaks }}
+
+                                    </div>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="no-lesson">
+
+                                    <div class="no-lesson-icon">
+                                        📖
+                                    </div>
+
+                                    <h3>
+                                        No lesson available
+                                    </h3>
+
+                                    <p>
+                                        This course doesn't have
+                                        any lessons yet.
+                                    </p>
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endwith %}
+                    {% endwith %}
+
+                </article>
+
+
+
+                <!-- =================================================
+                     LESSON TABLE / QUICK INFO
+                ================================================== -->
+
+                <div class="lesson-info-panel">
+
+                    <div class="lesson-info-heading">
+
+                        <div>
+
+                            <span>
+                                CURRENT COURSE
+                            </span>
+
+                            <h3>
+                                Learning Overview
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="lesson-info-table">
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Course
+                            </span>
+
+                            <strong>
+                                {{ course.title }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Category
+                            </span>
+
+                            <strong>
+                                {{ course.category.name }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Total Sections
+                            </span>
+
+                            <strong>
+                                {{ course.sections.count }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Total Lessons
+                            </span>
+
+                            <strong>
+                                {{ course.lesson_count }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Learning Mode
+                            </span>
+
+                            <strong>
+                                Self-paced
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     LESSON NAVIGATION
+                ================================================== -->
+
+                <div class="lesson-navigation">
+
+                    <button
+                        type="button"
+                        class="lesson-nav-button previous"
+                        disabled
+                    >
+
+                        <span class="nav-arrow">
+                            ←
+                        </span>
+
+                        <span>
+
+                            <small>
+                                PREVIOUS
+                            </small>
+
+                            <strong>
+                                Previous Lesson
+                            </strong>
+
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="complete-lesson-button"
+                    >
+
+                        <span class="complete-icon">
+                            ✓
+                        </span>
+
+                        Mark as Complete
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="lesson-nav-button next"
+                    >
+
+                        <span>
+
+                            <small>
+                                NEXT
+                            </small>
+
+                            <strong>
+                                Next Lesson
+                            </strong>
+
+                        </span>
+
+                        <span class="nav-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+{% endblock %}
